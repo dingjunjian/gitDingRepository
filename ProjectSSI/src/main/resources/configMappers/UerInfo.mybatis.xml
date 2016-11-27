@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.ssi.userinfo.dao.IUserInfoDao">
+	 <!-- /**查询全部用户信息/-->
+     <select id="findAllUser" resultType="com.project.ssi.userinfo.bean.UserInfo">
+        select * from User_Info where 1 = 1
+     </select>
+     
+     <!-- 查询某用户信息 -->
+     <select id="findUser" resultType="com.project.ssi.userinfo.bean.UserInfo" parameterType="java.lang.String">
+        select * from User_Info WHERE 1=1
+           AND ID = #{id}
+     </select>
+     
+     <!-- 查询所有用户数量 -->
+     <select id="userConutNumber" resultType="Integer">
+        select count(*) from User_Info where 1 = 1
+     </select>
+     
+     <!-- 添加用户 -->
+     <insert id="AddUserInfo" parameterType="com.project.ssi.userinfo.bean.UserInfo">
+        INSERT into User_Info(ID, NAME) VALUES(#{id}, #{name});
+     </insert>
+     <!-- 修改用户信息 -->
+     <update id ="updateUser" parameterType="com.project.ssi.userinfo.bean.UserInfo">
+       update User_Info set ID = #{id}, Name = #{name}
+        <where>
+         <if test="id != null and id != ''">
+           AND ID = #{id}
+         </if>
+         <if test="name != null and name != ''">
+           AND ID = #{name}
+         </if>
+        </where>
+     </update>
+     
+     <!-- 删除用户 -->
+     <delete id="delteUser" parameterType="com.project.ssi.userinfo.bean.UserInfo">
+        <if test="userInfo != null userInfo != ''">
+            delete from User_Info where ID = #{userInfo.id}
+         </if>
+     </delete>
+    
+</mapper>
